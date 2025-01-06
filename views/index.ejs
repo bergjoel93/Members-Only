@@ -9,6 +9,14 @@
     <h1>Members-Only Club</h1>
     <p>Please log in to access exclusive content.</p>
 
+    <% if (errors) { %>
+    <ul style="color: red">
+      <% errors.forEach(error => { %>
+      <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+    <% } %>
+
     <form action="/login" method="POST">
       <label for="username">Username:</label>
       <input type="text" id="username" name="username" required />

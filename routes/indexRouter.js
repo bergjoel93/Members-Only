@@ -15,6 +15,7 @@ const {
   getIndex,
   getRegister,
   postRegister,
+  postLogin,
 } = require("../controllers/indexController");
 
 ////////// GET ROUTES //////////////
@@ -29,5 +30,6 @@ router.get("/register", getRegister);
 router.post("/register", validateUserRegistration, postRegister);
 
 // Login User
+router.post("/login", validateUserLogin, postLogin);
 
 module.exports = router;

@@ -9,6 +9,7 @@ const passport = require("passport"); // Import Passport
 const LocalStrategy = require("passport-local").Strategy; // Import Local Strategry for username/password authentication
 const pool = require("../db/db"); // Import the PostgreSQL connection pool.
 const validatePassword = require("../lib/passwordUtils").validatePassword; // Import the function to validate the password by comparing hashes.
+const { findUserByUsername } = require("../db/queries");
 
 // These are custome fields to show how we can user custome fields.
 // These field names match exactly what's on the name attribute in the forms.
@@ -39,14 +40,7 @@ const customFields = {
  */
 const verifyCallback = async (username, password, done) => {
   try {
-    // Query the database to find a user by the provided username.
-    const { rows } = await pool.query(
-      "SELECT * FROM users WHERE username = $1",
-      [username]
-    );
-    // Get the first user found (should only be one)
-    const user = rows[0];
-    console.log("im in verify callback");
+    const user = await findUserByUsername(username);
     // If no user is found, return an error.
     if (!user) {
       /**

@@ -6,7 +6,8 @@ CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     full_name VARCHAR(60) NOT NULL,
     username VARCHAR(60) UNIQUE NOT NULL,
-    password VARCHAR(60) NOT NULL,
+    salt TEXT NOT NULL,
+    hash TEXT NOT NULL,
     member_status member_status NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
