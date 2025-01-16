@@ -51,8 +51,10 @@ body {
   margin-bottom: var(--padding-medium);
 }
 
-.index-error-item {
-  color: var(--warning-color);
+.index-error-item,
+.success-message {
+  color: var(--accent-color);
+  font-size: 1.2rem;
   font-weight: bold;
   text-align: center;
 }
