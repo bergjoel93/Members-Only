@@ -49,6 +49,7 @@ body {
 /* Chat Messages */
 .message-container li {
   list-style: none;
+  font-family: var(--font-message);
   padding: 8px 12px;
   background-color: #e6e6e6;
   border-radius: 10px;
