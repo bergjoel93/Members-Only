@@ -32,6 +32,9 @@
       <% } %>
 
       <h2 class="index-heading">Log in to access exclusive content</h2>
+      <% if (message) { %>
+      <div class="success-message"><%= message %></div>
+      <% } %>
 
       <form action="/login" method="POST" class="index-form">
         <label for="username" class="index-label">Username:</label>

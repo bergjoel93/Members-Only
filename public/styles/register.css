@@ -1,0 +1,125 @@
+@import url("root.css");
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-message);
+}
+
+/* Page Background */
+html,
+body {
+  height: 100%;
+  background-color: var(--primary-bg-color);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Container for the Form */
+.register-container {
+  background-color: #1e1e1e;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  max-width: 450px;
+  border: ridge 3px var(--secondary-bg-color);
+  text-align: center;
+}
+
+/* Headings */
+.register-container h1 {
+  font-family: var(--font-title);
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--accent-color);
+}
+
+.register-container p {
+  margin-bottom: 20px;
+  color: var(--outline-color);
+}
+
+/* Error Messages */
+.error-messages {
+  color: var(--warning-color);
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  text-align: left;
+  width: 100%;
+}
+
+/* Form Labels */
+.register-container label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  text-align: left;
+  color: var(--accent-color);
+}
+
+/* Input Fields */
+.register-container input[type="text"],
+.register-container input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: ridge 2px var(--secondary-bg-color);
+  background-color: #2c2c2c;
+  color: white;
+  transition: border-color 0.3s ease;
+}
+
+.register-container input[type="text"]:focus,
+.register-container input[type="password"]:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+/* Submit Button */
+.register-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--secondary-bg-color);
+  color: white;
+  border: ridge 2px var(--secondary-bg-color);
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.register-container button:hover {
+  background-color: var(--accent-color);
+  transform: scale(1.03);
+  border-color: var(--secondary-bg-color);
+}
+
+/* Login Link */
+.register-container a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.register-container a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile Responsive */
+@media (max-width: 500px) {
+  .register-container {
+    padding: 20px;
+  }
+
+  .register-container h1 {
+    font-size: 1.5rem;
+  }
+}

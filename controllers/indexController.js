@@ -12,7 +12,7 @@ function getIndex(req, res) {
   }
 
   // Render the index page for unauthenticated users
-  res.render("index", { user: req.user, errors: [] });
+  res.render("index", { user: req.user, errors: [], message: "" });
 }
 
 function getRegister(req, res) {
@@ -46,7 +46,11 @@ async function postRegister(req, res) {
     await addUser(fullName, username, "regular", salt, hash);
 
     // 3. redirect
-    res.render("registerSuccess", { name: fullName });
+    res.render("index", {
+      message: "Congrats! You've made an account!",
+      errors: [],
+      user: req.user,
+    });
   } catch (err) {
     console.error("Error during registration:", err);
     res

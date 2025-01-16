@@ -1,43 +1,47 @@
-<!-- views/register.ejs -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register</title>
-    <link rel="stylesheet" href="styles/styles.css" />
-    <link rel="icon" href="/path/to/moose_favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="styles/register.css" />
+    <link rel="stylesheet" href="/styles/navbar.css" />
+    <link rel="icon" href="icons/moose_favicon.ico" type="image/x-icon" />
   </head>
   <body>
     <%- include('partials/navbar') %>
-    <!--  -->
-    <h1>Register for the Members-Only Club</h1>
-    <p>Fill out the form below to create your account.</p>
 
-    <% if (errors) { %>
-    <ul style="color: red">
-      <% errors.forEach(error => { %>
-      <li><%= error.msg %></li>
-      <% }) %>
-    </ul>
-    <% } %>
+    <div class="register-container">
+      <h1>Join Anony-Moose!</h1>
+      <p>Fill out the form below to create your account.</p>
 
-    <form action="/register" method="POST">
-      <label for="first_name">First Name:</label>
-      <input type="text" id="first_name" name="first_name" required />
-      <br /><br />
-      <label for="last_name">Last Name:</label>
-      <input type="text" id="last_name" name="last_name" required />
-      <br /><br />
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required />
-      <br /><br />
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required />
-      <br /><br />
-      <button type="submit">Register</button>
-    </form>
+      <% if (errors) { %>
+      <div class="error-messages">
+        <ul>
+          <% errors.forEach(error => { %>
+          <li><%= error.msg %></li>
+          <% }) %>
+        </ul>
+      </div>
+      <% } %>
 
-    <p>Already have an account? <a href="/">Log in here</a>.</p>
+      <form action="/register" method="POST">
+        <label for="first_name">First Name:</label>
+        <input type="text" id="first_name" name="first_name" required />
+
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="last_name" name="last_name" required />
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+
+        <button type="submit">Register</button>
+      </form>
+
+      <p>Already have an account? <a href="/">Log in here</a>.</p>
+    </div>
   </body>
 </html>
