@@ -1,0 +1,139 @@
+@import url("root.css");
+
+/* Reset some default styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-message);
+}
+
+/* General Page Styling */
+body {
+  background-color: var(--primary-bg-color);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Container Styling */
+.container {
+  background-color: black;
+  padding: 30px;
+  border-radius: 12px;
+  border: ridge 3px var(--secondary-bg-color);
+  box-shadow: var(--box-shadow);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+}
+
+/* Headings */
+.container h1 {
+  font-family: var(--font-title);
+  color: var(--accent-color);
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+/* Status Message */
+.container p {
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+/* Status Highlight */
+.container strong {
+  color: var(--outline-color);
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+/* Dropdown Styling */
+select {
+  width: 85%;
+  padding: 10px;
+  border-radius: 8px;
+  border: ridge 2px var(--accent-color);
+  background-color: var(--secondary-bg-color);
+  color: var(--primary-bg-color);
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+select:focus {
+  outline: none;
+  border-color: var(--outline-color);
+}
+
+/* Password Input Styling */
+input[type="password"] {
+  width: 85%;
+  padding: 10px;
+  border-radius: 8px;
+  border: ridge 2px var(--accent-color);
+  background-color: white;
+  color: var(--primary-bg-color);
+  transition: border-color 0.3s ease;
+}
+
+input[type="password"]:focus {
+  outline: none;
+  border-color: var(--outline-color);
+}
+
+input[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Submit Button Styling */
+button {
+  width: 85%;
+  padding: 10px;
+  background-color: var(--secondary-bg-color);
+  border: ridge 2px var(--accent-color);
+  border-radius: 8px;
+  font-weight: bold;
+  color: var(--primary-bg-color);
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--outline-color);
+  border-color: var(--secondary-bg-color);
+}
+
+/* Error and Success Messages */
+p[style*="color: red"] {
+  font-weight: bold;
+  color: var(--warning-color) !important;
+}
+
+p[style*="color: green"] {
+  font-weight: bold;
+  color: var(--outline-color) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .container {
+    width: 90%;
+  }
+
+  select,
+  input[type="password"],
+  button {
+    width: 100%;
+  }
+}

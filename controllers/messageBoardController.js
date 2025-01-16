@@ -7,7 +7,7 @@ const {
   deleteMessageById,
 } = require("../db/queries");
 
-const { format, isValid } = require("date-fns");
+const { format, formatInTimeZone } = require("date-fns-tz");
 
 ////////// Get Requests //////////
 
@@ -54,9 +54,16 @@ async function postNewMessage(req, res) {
   }
 }
 
+/**
+ * Formats a UNIX timestamp to a readable date in the user's local time zone.
+ * @param {number} unixTimestamp - The UNIX timestamp to format.
+ * @returns {string} - Formatted date string like "March 12th, 3:15PM".
+ */
 function formatDate(unixTimestamp) {
-  const date = new Date(unixTimestamp * 1000); // Convert to milliseconds
-  return format(date, "MMMM do, h:mma");
+  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; // Detect user's timezone
+  const date = new Date(unixTimestamp * 1000); // Convert UNIX timestamp to milliseconds
+
+  return formatInTimeZone(date, userTimeZone, "MMMM do, h:mma");
 }
 
 // Handle deleting a message
@@ -83,4 +90,5 @@ module.exports = {
   getMessageBoard,
   postNewMessage,
   deleteMessage,
+  formatDate,
 };

@@ -4,6 +4,7 @@ const {
   deleteAllMessages,
 } = require("../db/queries");
 const { format } = require("date-fns");
+const { formatDate } = require("./messageBoardController");
 
 // Get the Admin Console Page
 async function getAdminConsole(req, res) {
@@ -39,11 +40,6 @@ async function deleteAllMessagesByAdmin(req, res) {
     console.error("Error deleting all messages:", err);
     res.status(500).send("Error deleting all messages.");
   }
-}
-
-// Helper to format dates
-function formatDate(dateString) {
-  return format(new Date(dateString), "MMMM do, h:mma");
 }
 
 module.exports = {
