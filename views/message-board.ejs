@@ -1,4 +1,3 @@
-<!-- views/message-board.ejs -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,12 +9,7 @@
     <link rel="icon" href="icons/moose_favicon.ico" type="image/x-icon" />
   </head>
   <body>
-    <%- include('partials/navbar') %>
-    <!--  -->
-    <!-- To add in first names add this:  -->
-    <!-- Display messages -->
-
-    <% if (messages.length > 0) { %>
+    <%- include('partials/navbar') %> <% if (messages.length > 0) { %>
     <ul class="messages-container">
       <% messages.forEach(message => { %>
       <div class="message-container">
@@ -25,13 +19,15 @@
           <strong>
             <% if (user.member_status === 'admin') { %> <%= message.full_name %>
             (@<%= message.username %>) <% } else if (user.member_status ===
-            'secret') { %> <%= message.first_name %><%} else { %> Anonymous <% }
-            %></strong
+            'secret') { %> <%= message.first_name %> <% } else { %> Anonymous <%
+            } %> </strong
           >: <%= message.text %>
         </li>
-        <em class="message-date"><%= formatDate(message.created_at) %></em>
+        <em
+          class="message-date"
+          data-timestamp="<%= message.created_at %>"
+        ></em>
       </div>
-
       <% }); %>
     </ul>
     <% } else { %>
@@ -45,10 +41,10 @@
           class="new-message-input"
           name="message"
           rows="1"
-          type="text"
           placeholder="Write your message here..."
           required
         ></textarea>
+        <input type="hidden" id="timezone" name="timezone" />
         <br />
         <button type="submit" class="submit-button">Post Message</button>
       </form>
@@ -61,13 +57,34 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        const textarea = document.querySelector(".new-message-input");
+        // 🕒 Set User's Timezone in Hidden Input
+        document.getElementById("timezone").value =
+          Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-        textarea.addEventListener("input", function () {
-          // Reset height to shrink if text is deleted
-          this.style.height = "auto";
-          // Set height to scrollHeight, but respect max-height
-          this.style.height = Math.min(this.scrollHeight, 160) + "px";
+        // 📏 Auto-Resizing Textarea
+        const textarea = document.querySelector(".new-message-input");
+        if (textarea) {
+          textarea.addEventListener("input", function () {
+            this.style.height = "auto";
+            this.style.height = Math.min(this.scrollHeight, 160) + "px";
+          });
+        }
+
+        // 🕒 Format Timestamps to User's Local Time
+        const messageDates = document.querySelectorAll(".message-date");
+        messageDates.forEach((element) => {
+          const unixTimestamp = element.getAttribute("data-timestamp");
+          if (unixTimestamp) {
+            const date = new Date(unixTimestamp * 1000);
+            const options = {
+              month: "long",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+              hour12: true,
+            };
+            element.textContent = date.toLocaleString(undefined, options);
+          }
         });
       });
     </script>

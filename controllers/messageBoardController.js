@@ -1,4 +1,3 @@
-// controllers/messageBoardController.js
 const {
   getAllMessages,
   getAllMessagesWithUsernames,
@@ -7,16 +6,15 @@ const {
   deleteMessageById,
 } = require("../db/queries");
 
-const { format, formatInTimeZone } = require("date-fns-tz");
+const { formatInTimeZone } = require("date-fns-tz");
 
 ////////// Get Requests //////////
 
-// get message board
+// Get Message Board
 async function getMessageBoard(req, res) {
   try {
     let messages;
 
-    // Fetch messages based on user role
     if (req.user.member_status === "admin") {
       messages = await getAllMessagesWithUserDetails();
     } else if (req.user.member_status === "secret") {
@@ -25,17 +23,21 @@ async function getMessageBoard(req, res) {
       messages = await getAllMessages();
     }
 
-    // Render the message board with the correct message data
-    res.render("message-board", { user: req.user, messages, formatDate });
+    res.render("message-board", {
+      user: req.user,
+      messages,
+    });
   } catch (err) {
     console.error("Error loading messages:", err);
     res.status(500).send("Error loading messages.");
   }
 }
 
-//////////// POST requests ////////////
+//////////// POST Requests ////////////
+
+// Handle New Message Submissions
 async function postNewMessage(req, res) {
-  const { message } = req.body;
+  const { message, timezone } = req.body;
 
   if (!message.trim()) {
     req.flash("error", "Message cannot be empty.");
@@ -43,7 +45,7 @@ async function postNewMessage(req, res) {
   }
 
   try {
-    const timestamp = Math.floor(Date.now() / 1000); // UNIX timestamp in seconds
+    const timestamp = Math.floor(Date.now() / 1000);
 
     await addNewMessage(req.user.user_id, message, timestamp);
 
@@ -54,20 +56,13 @@ async function postNewMessage(req, res) {
   }
 }
 
-/**
- * Formats a UNIX timestamp to a readable date in the user's local time zone.
- * @param {number} unixTimestamp - The UNIX timestamp to format.
- * @returns {string} - Formatted date string like "March 12th, 3:15PM".
- */
-function formatDate(unixTimestamp) {
-  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; // Detect user's timezone
-  console.log("Detected Timezone:", userTimeZone); // DEBUG
-  const date = new Date(unixTimestamp * 1000); // Convert UNIX timestamp to milliseconds
-
+// Format Date in User's Local Time
+function formatDate(unixTimestamp, userTimeZone = "UTC") {
+  const date = new Date(unixTimestamp * 1000);
   return formatInTimeZone(date, userTimeZone, "MMMM do, h:mma");
 }
 
-// Handle deleting a message
+// Handle Deleting a Message
 async function deleteMessage(req, res) {
   const messageId = req.params.id;
 
