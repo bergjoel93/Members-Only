@@ -8,46 +8,43 @@
     <link rel="stylesheet" href="styles/message-board.css" />
     <link rel="stylesheet" href="/styles/navbar.css" />
     <link rel="icon" href="icons/moose_favicon.ico" type="image/x-icon" />
-
   </head>
   <body>
     <%- include('partials/navbar') %>
     <!--  -->
-<!-- To add in first names add this:  -->
+    <!-- To add in first names add this:  -->
     <!-- Display messages -->
-  
+
     <% if (messages.length > 0) { %>
     <ul class="messages-container">
       <% messages.forEach(message => { %>
-        <div class="message-container">
-          <li
-            class="<% if (user.member_status === 'admin') { %> admin <% } else if (user.member_status === 'secret') { %> secret <% } else { %> regular <% } %>"
-          >
-            <strong>
-              <% if (user.member_status === 'admin') { %> <%= message.full_name %>
-              (@<%= message.username %>) <% } else if (user.member_status ===
-              'secret') { %> <%= message.first_name %><%} else { %> Anonymous <% }
-              %></strong
-            >: <%= message.text %>
-            
-          </li>
-          <em class="message-date"><%= formatDate(message.created_at) %></em>
-        </div>
+      <div class="message-container">
+        <li
+          class="<% if (user.member_status === 'admin') { %> admin <% } else if (user.member_status === 'secret') { %> secret <% } else { %> regular <% } %>"
+        >
+          <strong>
+            <% if (user.member_status === 'admin') { %> <%= message.full_name %>
+            (@<%= message.username %>) <% } else if (user.member_status ===
+            'secret') { %> <%= message.first_name %><%} else { %> Anonymous <% }
+            %></strong
+          >: <%= message.text %>
+        </li>
+        <em class="message-date"><%= formatDate(message.created_at) %></em>
+      </div>
 
       <% }); %>
     </ul>
     <% } else { %>
     <p>No messages yet 😛.</p>
     <% } %>
-     
-
 
     <!-- New Message Form -->
-     <div class="new-message-container">
+    <div class="new-message-container">
       <form action="/message-board" method="POST">
-        <input 
-        class="new-message-input"
+        <textarea
+          class="new-message-input"
           name="message"
+          rows="1"
           type="text"
           placeholder="Write your message here..."
           required
@@ -60,7 +57,19 @@
         <h4 class="username">@<%= user.username %></h4>
         <div class="member-status">Logged in as: <%= user.member_status %></div>
       </div>
-     </div>
+    </div>
 
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const textarea = document.querySelector(".new-message-input");
+
+        textarea.addEventListener("input", function () {
+          // Reset height to shrink if text is deleted
+          this.style.height = "auto";
+          // Set height to scrollHeight, but respect max-height
+          this.style.height = Math.min(this.scrollHeight, 160) + "px";
+        });
+      });
+    </script>
   </body>
 </html>

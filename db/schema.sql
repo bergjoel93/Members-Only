@@ -12,10 +12,9 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create the messages table
 CREATE TABLE messages (
     message_id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,  -- Ensure messages are deleted if user is deleted
+    user_id INTEGER REFERENCES users(user_id),
     text TEXT NOT NULL,
-    created_at TIMESTAMPTZ DEFAULT NOW()  -- Changed to TIMESTAMPTZ for timezone handling
+    created_at BIGINT DEFAULT 0
 );

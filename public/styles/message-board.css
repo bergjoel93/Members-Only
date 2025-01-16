@@ -14,6 +14,7 @@ body {
 body {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 /* Chat Container */
@@ -68,8 +69,8 @@ body {
 /* Message Form Styling */
 
 .new-message-container {
-  flex: 1;
   display: flex;
+  justify-self: flex-end;
   flex-direction: column;
   justify-content: center;
   gap: 8px;
@@ -87,13 +88,22 @@ body {
   padding-top: 8px;
 }
 
+/* Flexible Expanding Textarea */
 .new-message-input {
-  padding: 8px;
   width: 85%;
+  min-height: 40px;
+  max-height: 160px; /* Limit to ~4 lines */
+  padding: 8px;
   border-radius: 12px;
+  border: ridge 3px var(--secondary-bg-color);
+  overflow-y: auto;
+  resize: none; /* Disable manual resizing */
+  line-height: 1.5;
   transition: border ease 0.5s;
+  font-family: var(--font-message);
 }
 
+/* Change border on focus */
 .new-message-input:focus {
   border: ridge 3px var(--accent-color);
   outline: none;

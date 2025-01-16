@@ -149,14 +149,15 @@ async function getAllMessagesWithUserDetails() {
  * @param {number} userId - The ID of the user posting the message.
  * @param {string} text - The content of the message.
  */
-async function addNewMessage(userId, text) {
+async function addNewMessage(userId, text, timestamp) {
   const query = `
     INSERT INTO messages (user_id, text, created_at)
-    VALUES ($1, $2, NOW());
+    VALUES ($1, $2, $3)
   `;
+  const values = [userId, text, timestamp];
 
   try {
-    await pool.query(query, [userId, text]);
+    await pool.query(query, values);
   } catch (err) {
     console.error("Error adding new message:", err);
     throw err;

@@ -34,7 +34,6 @@ async function getMessageBoard(req, res) {
 }
 
 //////////// POST requests ////////////
-// Handle new message submissions
 async function postNewMessage(req, res) {
   const { message } = req.body;
 
@@ -44,9 +43,10 @@ async function postNewMessage(req, res) {
   }
 
   try {
-    await addNewMessage(req.user.user_id, message);
+    const timestamp = Math.floor(Date.now() / 1000); // UNIX timestamp in seconds
 
-    // Redirect back to the message board after adding the message
+    await addNewMessage(req.user.user_id, message, timestamp);
+
     res.redirect("/message-board");
   } catch (err) {
     console.error("Error posting message:", err);
@@ -54,26 +54,8 @@ async function postNewMessage(req, res) {
   }
 }
 
-function formatDate(dateInput) {
-  let date;
-
-  // Check if the input is already a Date object
-  if (dateInput instanceof Date) {
-    date = dateInput;
-  } else if (typeof dateInput === "string") {
-    // Replace space with 'T' to make it ISO compliant
-    date = new Date(dateInput.replace(" ", "T"));
-  } else {
-    // Invalid input, return fallback
-    return "Invalid Date";
-  }
-
-  // Check if the parsed date is valid
-  if (!isValid(date)) {
-    return "Invalid Date";
-  }
-
-  // Format the date to "March 12th, 3:15PM"
+function formatDate(unixTimestamp) {
+  const date = new Date(unixTimestamp * 1000); // Convert to milliseconds
   return format(date, "MMMM do, h:mma");
 }
 
