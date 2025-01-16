@@ -123,13 +123,14 @@
 
 @media (max-width: 790px) {
   .navbar-buttons a,
-  .logout-button {
+  .navbar-buttons form .logout-button {
     font-size: 0.8rem;
     min-width: 108px;
+    flex-wrap: wrap;
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .navbar-container {
     justify-content: center;
   }

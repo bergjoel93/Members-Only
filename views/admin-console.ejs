@@ -1,4 +1,3 @@
-<!-- views/admin-console.ejs -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -27,7 +26,10 @@
             <td data-label="Username">@<%= message.username %></td>
             <td data-label="Message"><%= message.text %></td>
             <td data-label="Created At">
-              <%= formatDate(message.created_at) %>
+              <em
+                class="message-date"
+                data-timestamp="<%= message.created_at %>"
+              ></em>
             </td>
             <td data-label="Actions">
               <form
@@ -64,5 +66,31 @@
       <p>No messages available.</p>
       <% } %>
     </div>
+
+    <!-- JavaScript to Format Dates in Local Time -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // 🕒 Format Timestamps to User's Local Time
+        const messageDates = document.querySelectorAll(".message-date");
+
+        messageDates.forEach((element) => {
+          const unixTimestamp = element.getAttribute("data-timestamp");
+
+          if (unixTimestamp) {
+            const date = new Date(unixTimestamp * 1000); // Convert to milliseconds
+
+            const options = {
+              month: "long",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
+              hour12: true,
+            };
+
+            element.textContent = date.toLocaleString(undefined, options);
+          }
+        });
+      });
+    </script>
   </body>
 </html>

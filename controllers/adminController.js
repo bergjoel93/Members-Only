@@ -3,15 +3,17 @@ const {
   deleteMessageById,
   deleteAllMessages,
 } = require("../db/queries");
-const { format } = require("date-fns");
-const { formatDate } = require("./messageBoardController");
+const { formatInTimeZone } = require("date-fns-tz");
 
 // Get the Admin Console Page
 async function getAdminConsole(req, res) {
   try {
     const messages = await getAllMessagesWithUserDetails();
-    //console.log(messages[0]);
-    res.render("admin-console", { user: req.user, messages, formatDate });
+
+    res.render("admin-console", {
+      user: req.user,
+      messages,
+    });
   } catch (err) {
     console.error("Error loading admin console:", err);
     res.status(500).send("Error loading admin console.");
@@ -42,8 +44,15 @@ async function deleteAllMessagesByAdmin(req, res) {
   }
 }
 
+// Format Date in User's Local Time
+function formatDate(unixTimestamp, userTimeZone = "UTC") {
+  const date = new Date(unixTimestamp * 1000);
+  return formatInTimeZone(date, userTimeZone, "MMMM do, h:mma");
+}
+
 module.exports = {
   getAdminConsole,
   deleteMessageByAdmin,
   deleteAllMessagesByAdmin,
+  formatDate,
 };

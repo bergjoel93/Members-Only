@@ -15,11 +15,14 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
 }
 
 /* Chat Container */
 .messages-container {
   display: flex;
+  flex: 1;
+  width: 100%;
   max-height: 700px;
   flex-direction: column-reverse; /* Makes the newest message appear at the bottom */
   overflow-y: scroll; /* Enables vertical scrolling */
@@ -31,6 +34,7 @@ body {
 
 .message-container {
   display: flex;
+  width: 100%;
   flex-direction: column;
   margin-top: 12px;
 }
@@ -70,6 +74,7 @@ body {
 
 .new-message-container {
   display: flex;
+  width: 100%;
   justify-self: flex-end;
   flex-direction: column;
   justify-content: center;
@@ -130,4 +135,29 @@ body {
   gap: 5px;
   font-size: 0.8rem;
   color: var(--outline-color);
+}
+
+.no-messages-yet {
+  color: white;
+  font-family: var(--font-message);
+}
+
+/* Custom Scrollbar for the Messages Container */
+.messages-container::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+.messages-container::-webkit-scrollbar-track {
+  background-color: var(--secondary-bg-color); /* Scrollbar track */
+  border-radius: 10px;
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background-color: var(--accent-color); /* Scrollbar thumb */
+  border-radius: 10px;
+  border: 2px solid var(--secondary-bg-color); /* Optional border */
+}
+
+.messages-container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--outline-color); /* Thumb color on hover */
 }

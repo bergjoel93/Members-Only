@@ -14,14 +14,15 @@
       <% messages.forEach(message => { %>
       <div class="message-container">
         <li
-          class="<% if (user.member_status === 'admin') { %> admin <% } else if (user.member_status === 'secret') { %> secret <% } else { %> regular <% } %>"
+          class="<% if (message.user_id === user.user_id) { %> user-message <% } %> <% if (user.member_status === 'admin') { %> admin <% } else if (user.member_status === 'secret') { %> secret <% } else { %> regular <% } %>"
         >
           <strong>
             <% if (user.member_status === 'admin') { %> <%= message.full_name %>
             (@<%= message.username %>) <% } else if (user.member_status ===
             'secret') { %> <%= message.first_name %> <% } else { %> Anonymous <%
-            } %> </strong
-          >: <%= message.text %>
+            } %>
+          </strong>
+          : <%= message.text %>
         </li>
         <em
           class="message-date"
@@ -31,7 +32,7 @@
       <% }); %>
     </ul>
     <% } else { %>
-    <p>No messages yet 😛.</p>
+    <h2 class="no-messages-yet">No messages yet 😛.</h2>
     <% } %>
 
     <!-- New Message Form -->
