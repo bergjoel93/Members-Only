@@ -1,0 +1,123 @@
+@import url("root.css");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: var(--primary-bg-color);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Chat Container */
+.messages-container {
+  display: flex;
+  max-height: 700px;
+  flex-direction: column-reverse; /* Makes the newest message appear at the bottom */
+  overflow-y: scroll; /* Enables vertical scrolling */
+  padding: 10px;
+  background-color: #f9f9f9;
+  scroll-behavior: smooth; /* Smooth scrolling */
+  background-color: var(--primary-bg-color);
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+}
+
+.message-date {
+  color: white;
+  font-size: 0.7rem;
+  align-self: flex-end;
+  margin-top: 2px;
+}
+
+/* Chat Messages */
+.message-container li {
+  list-style: none;
+  padding: 8px 12px;
+  background-color: #e6e6e6;
+  border-radius: 10px;
+  max-width: 90%;
+  word-wrap: break-word;
+  align-self: flex-end;
+}
+
+/* Differentiate User Types */
+.message-container li.admin {
+  background-color: #d1e7dd; /* Green for Admin */
+}
+
+.message-container li.secret {
+  background-color: #e2e3e5; /* Gray for Secret */
+}
+
+.message-container li.regular {
+  background-color: #f8d7da; /* Light red for Regular */
+}
+
+/* Message Form Styling */
+
+.new-message-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  background-color: black;
+  border: ridge var(--secondary-bg-color) 2px;
+  border-radius: 12px;
+  padding-top: 8px;
+}
+
+.new-message-container form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 8px;
+}
+
+.new-message-input {
+  padding: 8px;
+  width: 85%;
+  border-radius: 12px;
+  transition: border ease 0.5s;
+}
+
+.new-message-input:focus {
+  border: ridge 3px var(--accent-color);
+  outline: none;
+}
+
+.submit-button {
+  width: 85%;
+  padding: 8px;
+  background-color: var(--secondary-bg-color);
+  border: ridge var(--secondary-bg-color) 3px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color ease 0.5s;
+}
+
+.submit-button:hover {
+  border-color: var(--accent-color);
+}
+
+.user-status-container {
+  font-family: var(--font-message);
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  font-size: 0.8rem;
+  color: var(--outline-color);
+}

@@ -1,0 +1,66 @@
+<!-- views/message-board.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Message Board</title>
+    <link rel="stylesheet" href="styles/message-board.css" />
+    <link rel="stylesheet" href="/styles/navbar.css" />
+    <link rel="icon" href="icons/moose_favicon.ico" type="image/x-icon" />
+
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+    <!--  -->
+<!-- To add in first names add this:  -->
+    <!-- Display messages -->
+  
+    <% if (messages.length > 0) { %>
+    <ul class="messages-container">
+      <% messages.forEach(message => { %>
+        <div class="message-container">
+          <li
+            class="<% if (user.member_status === 'admin') { %> admin <% } else if (user.member_status === 'secret') { %> secret <% } else { %> regular <% } %>"
+          >
+            <strong>
+              <% if (user.member_status === 'admin') { %> <%= message.full_name %>
+              (@<%= message.username %>) <% } else if (user.member_status ===
+              'secret') { %> <%= message.first_name %><%} else { %> Anonymous <% }
+              %></strong
+            >: <%= message.text %>
+            
+          </li>
+          <em class="message-date"><%= formatDate(message.created_at) %></em>
+        </div>
+
+      <% }); %>
+    </ul>
+    <% } else { %>
+    <p>No messages yet 😛.</p>
+    <% } %>
+     
+
+
+    <!-- New Message Form -->
+     <div class="new-message-container">
+      <form action="/message-board" method="POST">
+        <input 
+        class="new-message-input"
+          name="message"
+          type="text"
+          placeholder="Write your message here..."
+          required
+        ></textarea>
+        <br />
+        <button type="submit" class="submit-button">Post Message</button>
+      </form>
+
+      <div class="user-status-container">
+        <h4 class="username">@<%= user.username %></h4>
+        <div class="member-status">Logged in as: <%= user.member_status %></div>
+      </div>
+     </div>
+
+  </body>
+</html>

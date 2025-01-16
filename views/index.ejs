@@ -3,30 +3,63 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+    <title>Login - Anony-Moose</title>
+    <link rel="stylesheet" href="styles/root.css" />
+    <link rel="stylesheet" href="styles/navbar.css" />
+    <link rel="stylesheet" href="styles/index.css" />
+    <link rel="icon" href="icons/moose_favicon.ico" type="image/x-icon" />
   </head>
   <body>
-    <h1>Members-Only Club</h1>
-    <p>Please log in to access exclusive content.</p>
+    <%- include('partials/navbar') %>
 
-    <% if (errors) { %>
-    <ul style="color: red">
-      <% errors.forEach(error => { %>
-      <li><%= error.msg %></li>
-      <% }) %>
-    </ul>
-    <% } %>
+    <div class="index-container">
+      <% if (locals.user) { %>
+      <h1 class="index-welcome-message">Welcome Back, <%= user.username %>!</h1>
+      <div class="index-links">
+        <form action="/logout" method="POST">
+          <button type="submit" class="index-logout-button">Log Out</button>
+        </form>
+        <a href="/message-board" class="index-link-button"
+          >Go to Message Board</a
+        >
+      </div>
+      <% } else { %> <% if (errors) { %>
+      <ul class="index-error-list">
+        <% errorMessages.forEach(message => { %>
+        <li class="index-error-item"><%= message %></li>
+        <% }) %>
+      </ul>
+      <% } %>
 
-    <form action="/login" method="POST">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required />
-      <br /><br />
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required />
-      <br /><br />
-      <button type="submit">Login</button>
-    </form>
+      <h2 class="index-heading">Log in to access exclusive content</h2>
 
-    <p>Don't have an account? <a href="/register">Register here</a>.</p>
+      <form action="/login" method="POST" class="index-form">
+        <label for="username" class="index-label">Username:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          class="index-input"
+          required
+        />
+
+        <label for="password" class="index-label">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="index-input"
+          required
+        />
+
+        <button type="submit" class="index-submit-button">Login</button>
+      </form>
+
+      <p class="index-register-text">
+        Don't have an account?
+        <a href="/register" class="index-register-link">Register here</a>.
+      </p>
+      <% } %>
+    </div>
   </body>
 </html>

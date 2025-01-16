@@ -1,0 +1,203 @@
+@import url("root.css");
+@import url("https://fonts.googleapis.com/css2?family=Barrio&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+/* Navbar Styles */
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  background-color: var(--primary-bg-color);
+  padding: 12px;
+}
+
+.logo-container {
+  justify-content: flex-start;
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 150px;
+  height: 150px;
+}
+
+.logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.nav-title a {
+  font-family: "Barrio", serif;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: white;
+}
+
+.navbar {
+  flex: 1;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+/* Navbar Links */
+
+.navbar-buttons {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 8px;
+}
+
+.navbar-buttons a,
+.logout-button {
+  color: var(--primary-bg-color);
+  min-width: 130px;
+  font-family: var(--font-title);
+  font-size: 1rem;
+  padding: 7px;
+  text-decoration: none;
+  background-color: var(--secondary-bg-color);
+  border: ridge 4px var(--secondary-bg-color);
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  transition: background-color 0.5s ease, border-color 0.5s ease;
+  cursor: pointer;
+}
+
+.navbar-buttons a:hover {
+  border-color: var(--accent-color);
+}
+
+.logout-button:hover {
+  background-color: var(--warning-color);
+  border-color: var(--accent-color);
+}
+
+/* Hamburger Button */
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 2;
+}
+
+/* Close Button */
+.close-menu {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-top: 10px;
+  margin-right: 10px;
+  z-index: 2;
+}
+
+/* --------------------- */
+/* Responsive Design */
+/* --------------------- */
+
+@media (min-width: 601px) {
+  .menu-toggle {
+    display: none;
+  }
+  .close-menu {
+    display: none;
+  }
+}
+
+@media (max-width: 790px) {
+  .navbar-buttons a,
+  .logout-button {
+    font-size: 0.8rem;
+    min-width: 108px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar-container {
+    justify-content: center;
+  }
+  .navbar {
+    flex: 0;
+  }
+  .logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .nav-title a {
+    font-size: 1.4rem;
+  }
+  /* Navbar Buttons */
+  .navbar-buttons {
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    background-color: var(--primary-bg-color);
+    width: 100%;
+    position: absolute;
+    top: 100px;
+    left: 0;
+
+    opacity: 0; /* Start hidden */
+    max-height: 0; /* Collapse */
+    overflow: hidden; /* Hide content when collapsed */
+    padding: 0;
+
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.8s ease-in-out;
+  }
+
+  /* Show Navbar when Active */
+  .navbar-buttons.active {
+    opacity: 1;
+    max-height: 500px; /* Adjust as needed */
+    padding: 20px 0;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .close-menu {
+    display: none; /*close by default*/
+  }
+
+  /* Show Close Button When Active */
+  .close-menu.active {
+    display: block;
+  }
+
+  /* Hide Hamburger When Menu is Active */
+  .menu-toggle.hidden {
+    display: none;
+  }
+
+  .navbar-buttons a,
+  .logout-button {
+    font-size: 1rem;
+    padding: 10px;
+    width: 90%;
+    margin: 5px auto;
+    text-align: center;
+  }
+}

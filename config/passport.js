@@ -9,7 +9,7 @@ const passport = require("passport"); // Import Passport
 const LocalStrategy = require("passport-local").Strategy; // Import Local Strategry for username/password authentication
 const pool = require("../db/db"); // Import the PostgreSQL connection pool.
 const validatePassword = require("../lib/passwordUtils").validatePassword; // Import the function to validate the password by comparing hashes.
-const { findUserByUsername } = require("../db/queries");
+const { findUserByUsername, findUserById } = require("../db/queries");
 
 // These are custome fields to show how we can user custome fields.
 // These field names match exactly what's on the name attribute in the forms.
@@ -43,11 +43,7 @@ const verifyCallback = async (username, password, done) => {
     const user = await findUserByUsername(username);
     // If no user is found, return an error.
     if (!user) {
-      /**
-       * If there is no user in the db, return done(null, false, object).
-       * This tells passport that there was no error, but the user was not found. Passport will return a 401 status.
-       */
-      return done(null, false, { message: "Incorrect username" });
+      return done(null, false, { message: "Username not found." });
     }
 
     // Validate the provided password against the stored hash and salt
@@ -57,7 +53,7 @@ const verifyCallback = async (username, password, done) => {
       return done(null, user);
     } else {
       // If password is invalid, return an error.
-      return done(null, false, { message: "Incorrect password!" });
+      return done(null, false, { message: "Incorrect password" });
     }
   } catch (error) {
     // If there's an error during the database query, return the error.
@@ -82,7 +78,7 @@ passport.use(strategy);
  * @param {function} done - A callback function to store the user ID in the session.
  */
 passport.serializeUser((user, done) => {
-  done(null, user.id); // Stores the user's ID in the session.
+  done(null, user.user_id); // Stores the user's ID in the session.
 });
 
 /**
@@ -93,16 +89,15 @@ passport.serializeUser((user, done) => {
  */
 passport.deserializeUser(async (id, done) => {
   try {
-    const { rows } = await pool.query("SELECT * FROM users WHERE id = $1", [
-      id,
-    ]);
-    const user = rows[0];
+    const user = await findUserById(id);
 
     done(null, user);
   } catch (err) {
     done(err);
   }
 });
+
+module.exports = passport;
 
 /**
  * Notes on serialization and deserialization:

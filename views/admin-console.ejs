@@ -1,0 +1,74 @@
+<!-- views/admin-console.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Console</title>
+    <link rel="stylesheet" href="/styles/admin.css" />
+    <link rel="stylesheet" href="/styles/navbar.css" />
+    <link rel="icon" href="icons/moose_favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+
+    <div class="container">
+      <h1>Admin Console</h1>
+
+      <% if (messages.length > 0) { %>
+      <table>
+        <thead>
+          <tr>
+            <th>Full Name</th>
+            <th>Username</th>
+            <th>Message</th>
+            <th>Created At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% messages.forEach(message => { %>
+          <tr>
+            <td data-label="Full Name"><%= message.full_name %></td>
+            <td data-label="Username">@<%= message.username %></td>
+            <td data-label="Message"><%= message.text %></td>
+            <td data-label="Created At">
+              <%= formatDate(message.created_at) %>
+            </td>
+            <td data-label="Actions">
+              <form
+                action="/admin-console/delete/<%= message.message_id %>"
+                method="POST"
+                style="display: inline"
+              >
+                <button
+                  type="submit"
+                  class="delete-btn"
+                  onclick="return confirm('Delete this message?')"
+                >
+                  🗑 Delete
+                </button>
+              </form>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+
+      <!-- Delete All Messages Button -->
+      <form action="/admin-console/delete-all" method="POST">
+        <button
+          type="submit"
+          class="delete-all-btn"
+          onclick="return confirm('Delete ALL messages?')"
+        >
+          🗑 Delete All Messages
+        </button>
+      </form>
+
+      <% } else { %>
+      <p>No messages available.</p>
+      <% } %>
+    </div>
+  </body>
+</html>

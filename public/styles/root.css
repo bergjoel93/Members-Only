@@ -1,0 +1,26 @@
+:root {
+  /* 🎨 Color Palette */
+  --primary-bg-color: #261419; /* Light gray background */
+  --secondary-bg-color: #f25c05; /* White for chat bubbles */
+  --outline-color: #90d923; /* Yellow for highlights or icons */
+  --accent-color: #1bddf2; /* Light gray borders */
+  --warning-color: #f22e52;
+
+  /* ✨ Fonts */
+  --font-title: "Trebuchet MS", Tahoma, sans-serif; /* For headers & usernames */
+  --font-message: "Verdana", Geneva, sans-serif; /* For chat messages */
+
+  /* 🔲 Borders & Shadows */
+  --border-radius: 8px;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  /* 📏 Spacing */
+  --padding-small: 8px;
+  --padding-medium: 16px;
+  --padding-large: 24px;
+
+  /* 🖍️ Font Sizes */
+  --font-size-title: 18px;
+  --font-size-message: 14px;
+  --font-size-small: 12px;
+}

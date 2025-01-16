@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Membership Status</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <link rel="stylesheet" href="/styles/navbar.css" />
+    <link rel="icon" href="icons/moose_favicon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <%- include('partials/navbar') %>
+
+    <div class="container">
+      <h1>Edit Membership Status</h1>
+
+      <p>
+        Your current membership status is:
+        <strong><%= user.member_status.toUpperCase() %></strong>
+      </p>
+
+      <% if (error) { %>
+      <p style="color: red"><%= error %></p>
+      <% } %> <% if (success) { %>
+      <p style="color: green"><%= success %></p>
+      <% } %>
+
+      <form action="/edit-member-status" method="POST">
+        <label for="new_status">Change Membership Status:</label>
+        <select name="new_status" id="new_status" required>
+          <% if (user.member_status !== 'regular') { %>
+          <option value="regular">Regular</option>
+          <% } %> <% if (user.member_status !== 'secret') { %>
+          <option value="secret">Secret</option>
+          <% } %> <% if (user.member_status !== 'admin') { %>
+          <option value="admin">Admin</option>
+          <% } %>
+        </select>
+
+        <br /><br />
+
+        <label for="password">Password (required for Secret/Admin):</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter password"
+          disabled
+        />
+
+        <br /><br />
+        <button type="submit">Update Membership</button>
+      </form>
+    </div>
+
+    <!-- JavaScript to Enable/Disable Password Input -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const statusDropdown = document.getElementById("new_status");
+        const passwordField = document.getElementById("password");
+
+        function togglePasswordField() {
+          if (statusDropdown.value === "regular") {
+            passwordField.disabled = true;
+            passwordField.value = ""; // Clear the password field when disabled
+          } else {
+            passwordField.disabled = false;
+          }
+        }
+
+        // Run on page load in case of pre-selected option
+        togglePasswordField();
+
+        // Listen for changes in the dropdown
+        statusDropdown.addEventListener("change", togglePasswordField);
+      });
+    </script>
+  </body>
+</html>

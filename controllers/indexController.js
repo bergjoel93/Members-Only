@@ -6,16 +6,20 @@ const passport = require("passport");
 
 // Get Request
 function getIndex(req, res) {
-  res.render("index", { errors: [] });
+  if (req.isAuthenticated()) {
+    // Redirect authenticated users to the message board
+    return res.redirect("/message-board");
+  }
+
+  // Render the index page for unauthenticated users
+  res.render("index", { user: req.user, errors: [] });
 }
 
 function getRegister(req, res) {
-  res.render("register", { errors: [] });
+  res.render("register", { errors: [], user: req.user });
 }
 
 // Post Request
-// TODO - This is where I'm struggling. I don't know how to implement the passport.authenticate middleware.
-async function postLogin() {}
 
 async function postRegister(req, res) {
   const { first_name, last_name, username, password } = req.body;
@@ -55,7 +59,6 @@ module.exports = {
   getIndex,
   getRegister,
   postRegister,
-  postLogin,
 };
 
 function capitalizeFirst(val) {

@@ -4,8 +4,10 @@ const PORT = process.env.PORT || 3000;
 const session = require("express-session");
 require("dotenv");
 const dbConnection = require("./db/db");
+const passport = require("./config/passport");
+const flash = require("connect-flash");
 
-const indexRouter = require("./routes/indexRouter"); // Import the router
+const router = require("./routes/router"); // Import the router
 
 // Serve static files from the "public" directory
 app.use(express.static("public"));
@@ -40,13 +42,33 @@ app.use(
     store: sessionStore, // Use the PostreSQL session store to persist session data
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }, // Session cookie expires in 30 days.
   })
-  /**
-   * A note about how the cookie works. When a session is created the express session middleware is going to get this cookie on every request and take the value. Then it looks up this value session ID in the session store and confirms it's valid. If it's valid you can show the user content or gather data on the user such as how many times the user has visited the site.
-   */
 );
 
+// Initialize flash middleware
+app.use(flash());
+
+// Pass flash messages to all views
+app.use((req, res, next) => {
+  res.locals.errorMessages = req.flash("error"); // Attach error messages to locals
+  next();
+});
+
+/**
+ * -------------- Passport Authentication ----------------
+ */
+// Initialize passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+// Middleware to log the session and user information for debugging purposes
+app.use((req, res, next) => {
+  // console.log(req.session);
+  //console.log(req.user);
+  //console.log("Authenticated?", req.isAuthenticated());
+  next();
+});
+
 // Use the indexRouter for root-level routes
-app.use("/", indexRouter);
+app.use("/", router);
 
 app.listen(PORT, () => {
   console.log("Server running on port 3000");

@@ -1,0 +1,141 @@
+@import url("root.css");
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Full-height background */
+html,
+body {
+  height: 100%;
+  background-color: var(--primary-bg-color);
+  font-family: var(--font-message);
+}
+
+/* Center content vertically and horizontally */
+.index-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--padding-large);
+  margin: auto;
+  width: 100%;
+  max-width: 500px;
+  background-color: var(--secondary-bg-color);
+  border: ridge 5px var(--secondary-bg-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  gap: var(--padding-medium);
+}
+
+.index-heading {
+  color: black;
+}
+
+/* Welcome message */
+.index-welcome-message {
+  font-family: var(--font-title);
+  font-size: var(--font-size-title);
+  color: var(--outline-color);
+  text-align: center;
+}
+
+/* Error message styling */
+.index-error-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: var(--padding-medium);
+}
+
+.index-error-item {
+  color: var(--warning-color);
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Form Styling */
+.index-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: var(--padding-small);
+}
+
+.index-label {
+  font-weight: bold;
+  color: var(--outline-color);
+}
+
+.index-input {
+  padding: var(--padding-small);
+  width: 100%;
+  border-radius: var(--border-radius);
+  border: ridge 2px var(--accent-color);
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+.index-input:focus {
+  border-color: var(--outline-color);
+  outline: none;
+}
+
+/* Buttons */
+.index-submit-button,
+.index-logout-button,
+.index-link-button {
+  padding: var(--padding-small);
+  width: 100%;
+  background-color: var(--secondary-bg-color);
+  color: var(--primary-bg-color);
+  font-weight: bold;
+  border: ridge 2px var(--accent-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+}
+
+.index-submit-button:hover,
+.index-logout-button:hover,
+.index-link-button:hover {
+  background-color: var(--outline-color);
+  border-color: var(--secondary-bg-color);
+}
+
+/* Register Link */
+.index-register-text {
+  color: white;
+  text-align: center;
+  margin-top: var(--padding-small);
+}
+
+.index-register-link {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.index-register-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .index-container {
+    padding: var(--padding-medium);
+    width: 90%;
+  }
+
+  .index-input,
+  .index-submit-button,
+  .index-logout-button,
+  .index-link-button {
+    font-size: var(--font-size-small);
+  }
+}
