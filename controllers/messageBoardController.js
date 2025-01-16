@@ -61,6 +61,7 @@ async function postNewMessage(req, res) {
  */
 function formatDate(unixTimestamp) {
   const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone; // Detect user's timezone
+  console.log("Detected Timezone:", userTimeZone); // DEBUG
   const date = new Date(unixTimestamp * 1000); // Convert UNIX timestamp to milliseconds
 
   return formatInTimeZone(date, userTimeZone, "MMMM do, h:mma");
