@@ -29,6 +29,7 @@ async function postRegister(req, res) {
     // Render the registration page with validation error messages
     return res.status(400).render("register", {
       errors: errors.array(),
+      user: req.user,
     });
   }
 
